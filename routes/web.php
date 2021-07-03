@@ -18,26 +18,6 @@ Route::get('/clear', function() {
     echo '<pre>'; var_dump(__LINE__);die(); echo '</pre>';
 });
 
-Route::get('/video/playlist/{playlist}',function($playlist){
-	return \FFMpeg::dynamicHLSPlaylist()
-	->fromDisk('videos')
-	->open('out/'.$playlist)
-	->setKeyUrlResolver(function ($key) {
-        return route('video.key', ['key' => $key]);
-    })
-    ->setMediaUrlResolver(function ($mediaFilename) {
-        return \Storage::disk('videos')->url('out/'.$mediaFilename);
-    })
-    ->setPlaylistUrlResolver(function ($playlistFilename) {
-
-        return route('video.playlist', ['playlist' => $playlistFilename]);
-    });
-})->name('video.playlist');
-
-Route::get('/video/key/{key}',function($key){
-	return \Storage::disk('videos')->download('out/'.$key);
-})->name('video.key');
-
 
 Route::group([
 		'prefix' => LaravelLocalization::setLocale(),

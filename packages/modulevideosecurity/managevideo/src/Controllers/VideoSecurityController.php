@@ -7,8 +7,26 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class VideoSecurityController extends Controller
 {
-    public function test()
+	protected $videoSetting;
+	public function __construct(){
+		$this->videoSetting = app('VideoSetting');
+	}
+    public function playVideo($playlist)
     {
-    	
+    	return \FFMpeg::dynamicHLSPlaylist()
+		->fromDisk('tvsvideos')
+		->open($this->videoSetting->getSettingConfig('path_output_folder').'/'.$playlist)
+		->setKeyUrlResolver(function ($key) {
+	        return $this->videoSetting->setKeyUrlResolver($key);
+	    })
+	    ->setMediaUrlResolver(function ($mediaFilename) {
+	        return $this->videoSetting->setMediaUrlResolver($mediaFilename);
+	    })
+	    ->setPlaylistUrlResolver(function ($playlistFilename) {
+	        return $this->videoSetting->setPlaylistUrlResolver($playlistFilename);
+	    });
+    }
+    public function key($key){
+    	return \Storage::disk('tvsvideos')->download($this->videoSetting->getSettingConfig('path_output_folder').'/'.$key);
     }
 }

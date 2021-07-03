@@ -17,6 +17,9 @@ class VideoSecurityServiceProvider extends ServiceProvider
         $this->app->singleton('VideoSetting', function () {
             return new VideoSetting();
         });
+        $this->commands([
+            \modulevideosecurity\managevideo\Commands\VideoConvert::class
+        ]);
     }
 
     /**

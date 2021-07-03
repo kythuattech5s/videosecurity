@@ -41,7 +41,7 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        'videos' => [
+        'tvsvideos' => [
             'driver' => 'local',
             'root' => public_path('tech5s_security_videos'),
             'url' => env('APP_URL').'/tech5s_security_videos',
