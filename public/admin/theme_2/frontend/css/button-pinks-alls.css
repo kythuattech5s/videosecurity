@@ -1,0 +1,7 @@
+.btn-pinks-alls {
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px 35px;
+}

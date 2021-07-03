@@ -1,0 +1,8 @@
+<?php
+
+namespace DummyNamespace;
+
+use vth\slug\HModel;
+class DummyClass extends HModel{
+	/* Make by VTH  */
+}

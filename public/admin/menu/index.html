@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Base</title>
+	<link href="theme/frontend/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+	<link href="theme/frontend/css/font-awesome.css" type="text/css" rel="stylesheet" />
+
+	<link href="theme/frontend/css/jquery-ui.min.css" type="text/css" rel="stylesheet" />
+
+	<link href="theme/frontend/css/style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+	<br><br><br>
+	<form>
+		<div class="col-md-9 col-md-offset-3">
+			<div class="menu-manage">
+				<div class="row">
+					<div class="col-md-3 col-xs-12">
+						<h4>Liên kết</h4>
+						<p>Kéo thả liên kết để thay đổi thứ tự hiển thị.</p>
+						<button id="add-menu" type="button" class="btn btn-default">Thêm liên kết</button>
+					</div>
+					<div class="col-md-9 col-xs-12">
+						<ul class="nav-list first">
+							<li class="nav-item">
+								<div class="nav-line">
+									<span class="arrow fa fa-arrows"></span>
+									<button type="button" class="plus"><i class="fa fa-plus-circle"></i></button>
+
+									<input type="text">
+									<select class="menu-select">
+										<option value="home">Trang chủ</option>
+										<option value="product">Sản phẩm</option>
+										<option value="news">Tin tức</option>
+										<option value="static">Trang tĩnh</option>
+										<option value="link">Nhập url</option>
+									</select>
+
+									<div class="data-select" data-select="product">
+										<input type="hidden">
+										<button type="button" class="btn btn-default">Chọn sản phẩm</button>
+										<div class="select-search">
+											<input type="text" placeholder="Tìm kiếm danh mục">
+											<ul>
+												<li data-value="sp1">Sản phẩm 1</li>
+												<li data-value="sp2">Sản phẩm 2</li>
+												<li data-value="sp3">Sản phẩm 3</li>
+												<li data-value="sp4">Sản phẩm 4</li>
+												<li data-value="sp5">Sản phẩm 5</li>
+											</ul>
+											<div class="select-pagination">
+												<a href="#" title="" class="sp-prev disable"><i class="fa fa-angle-left"></i></a>
+												<a href="#" title="" class="sp-next"><i class="fa fa-angle-right"></i></a>
+											</div>
+										</div>
+									</div>
+									<div class="data-select" data-select="news">
+										<input type="hidden">
+										<button type="button" class="btn btn-default">Chọn tin tức</button>
+										<div class="select-search">
+											<input type="text" placeholder="Tìm kiếm danh mục">
+											<ul>
+												<li data-value="sp1">Tin tức 1</li>
+												<li data-value="sp2">Tin tức 2</li>
+												<li data-value="sp3">Tin tức 3</li>
+												<li data-value="sp4">Tin tức 4</li>
+												<li data-value="sp5">Tin tức 5</li>
+											</ul>
+											<div class="select-pagination">
+												<a href="#" title="" class="sp-prev"><i class="fa fa-angle-left"></i></a>
+												<a href="#" title="" class="sp-next disable"><i class="fa fa-angle-right"></i></a>
+											</div>
+										</div>
+									</div>
+									<div class="data-select" data-select="static">
+										<input type="hidden">
+										<button type="button" class="btn btn-default">Chọn trang tĩnh</button>
+										<div class="select-search">
+											<input type="text" placeholder="Tìm kiếm danh mục">
+											<ul>
+												<li data-value="sp1">Trang tĩnh 1</li>
+												<li data-value="sp2">Trang tĩnh 2</li>
+												<li data-value="sp3">Trang tĩnh 3</li>
+												<li data-value="sp4">Trang tĩnh 4</li>
+												<li data-value="sp5">Trang tĩnh 5</li>
+											</ul>
+											<div class="select-pagination">
+												<a href="#" title="" class="sp-prev"><i class="fa fa-angle-left"></i></a>
+												<a href="#" title="" class="sp-next"><i class="fa fa-angle-right"></i></a>
+											</div>
+										</div>
+									</div>
+									<div class="data-select" data-select="link">
+										<input type="text" placeholder="Nhập URL">
+									</div>
+
+									<button type="button" class="del-menu btn btn-danger"><i class="fa fa-trash-o"></i></button>
+								</div>
+
+								<!-- <ul class="nav-list"></ul> -->
+							</li>
+						</ul>
+
+					
+						<div class="no-menu-table text-center">
+							<h4>Menu này hiện chưa có liên kết nào</h4>
+							<p>Ấn vào nút bên trái để thêm liên kết</p>
+						</div>
+						<div class="text-right">
+							<button type="submit" class="btn btn-primary">Lưu</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+
+	<script src="theme/frontend/js/jquery-2.2.1.min.js" defer></script>
+	<script src="theme/frontend/js/bootstrap.min.js" defer></script>
+	<script src="theme/frontend/js/jquery-ui.min.js" defer></script>
+	
+	<script src="theme/frontend/js/script.js" defer></script>
+</body>
+</html>

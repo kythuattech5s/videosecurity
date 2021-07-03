@@ -1,0 +1,16 @@
+.title-all-after {
+    font-family: 'OpenSans-SemiBold';
+    padding-bottom: 10px;
+    position: relative;
+
+    &:after {
+        content: "";
+        display: flex;
+        width: 100px;
+        height: 3px;
+        background-color: $pinks;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+    }
+}

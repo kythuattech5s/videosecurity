@@ -1,0 +1,1 @@
+<?php namespace vanhenry\events_jb;use App\ExamQuestion;class InsertSuccess{    public function handle($table,$data,$injects,$_id){    	if($table instanceof \vanhenry\manager\model\VTable){    		$tblmap = $table->table_map;                		    	}    } }

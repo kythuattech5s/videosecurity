@@ -1,0 +1,25 @@
+#modal-choose-prd-flashsale.show,.big-modal-alls.show{
+     opacity: 1;
+     display: block;
+}
+
+.big-modal-alls .modal-dialog{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100%;
+}
+
+.big-modal-alls .modal-dialog .modal-content table{
+     width: 100%;
+}
+
+.big-modal-alls .modal-dialog .modal-content{
+     width: 100%;
+     padding: 15px;
+}
+.big-modal-alls .modal-dialog .modal-content .opensan-semi{
+     font-size: 30px;
+     font-weight: bold;
+}
+

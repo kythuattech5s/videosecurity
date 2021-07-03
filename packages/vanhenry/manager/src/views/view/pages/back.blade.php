@@ -1,0 +1,1 @@
+<a href="javascript:history.back()" class="prev-comparess mb-3"> <i class="fa fa-angle-left" aria-hidden="true"></i> Trở lại </a>

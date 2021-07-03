@@ -1,0 +1,438 @@
+.modalOrder {
+    position: fixed;
+    width: 90%;
+    height: 90%;
+    top: 50%;
+    background: white;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px #ebebeb;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .4s;
+}
+
+.modalOrder.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.orderDetail table {
+    width: 100%;
+}
+
+.orderDetail .title-order {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color: #c51940;
+    margin-bottom: 30px;
+}
+
+.orderDetail {
+    position: relative;
+    height: 90%;
+    overflow: auto;
+    padding: 0 15px;
+}
+
+.closeOderDetail i {
+    font-size: 24px;
+}
+
+.closeOderDetail {
+    position: absolute;
+    right: 60px;
+    top: 30px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 5px black;
+    transition: all .3s;
+    z-index: 1000;
+}
+
+.orderDetail img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.orderDetail table td a:hover {
+    color: #c51940;
+}
+
+.orderDetail table td a {
+    color: black;
+    transition: all .3s
+}
+
+.orderDetail table td,
+.orderDetail table th {
+    padding: 5px 10px;
+    border: 1px solid #ebebeb;
+}
+
+.comfirmOrder {
+    padding: 20px 15px;
+    margin-bottom: 15px;
+    background: #ebebeb54;
+    border-radius: 5px;
+}
+
+.comfirmOrder button.comfirmCarrier {
+    background: #c51940;
+    color: white;
+}
+
+.comfirmOrder button {
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    transition: all .3s
+}
+
+.comfirmOrder button:hover {
+    background: #960829;
+    color: white;
+}
+
+.orderDetail table td:first-child,
+.orderDetail table th:first-child {
+    text-align: left;
+}
+
+.comfirmOrder p {
+    font-weight: bold;
+}
+
+.status-order p:last-child {
+    font-weight: bold;
+}
+
+.order-code,
+.order-success,
+.sent_has_product {
+    padding: 2px 5px;
+    background: #c51940;
+    color: white;
+    border: none;
+}
+
+.sent_has_product {
+    background: orangered
+}
+
+.order-success {
+    background: green;
+}
+
+.bg-black {
+    background: black;
+    opacity: 0.4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.modalOrder .info-order-detail {
+    margin-bottom: 10px;
+}
+
+.status-pre-order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.promotion-order .sale_promotion {
+    background: #19c58d;
+}
+
+.promotion-order .sale_combo {
+    background: #199dc5;
+}
+
+.promotion-order .sale_flash_sale {
+    background: #ffac15;
+}
+
+.promotion-order .sale_deal {
+    background: black;
+}
+
+.promotion-order .sale_voucher {
+    background: #192ec5;
+}
+
+.promotion-order .sale_promotion,
+.promotion-order .sale_combo,
+.promotion-order .sale_flash_sale,
+.promotion-order .sale_deal,
+.promotion-order .sale_voucher {
+    padding: 2px 10px;
+    color: white;
+}
+
+.detailMain {
+    background: #ebebeb54;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px #ebebeb;
+    margin: 15px 0;
+}
+
+.info-user-order p {
+    margin: 10px 0px;
+}
+
+.agency_modal .title-modal {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.agency_modal .submitForm button:hover {
+    border: 1px solid #C51940;
+    color: #C51940;
+    background: white;
+}
+
+.agency_modal .submitForm button {
+    padding: 5px 20px;
+    transition: all .3s;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 0 black;
+    background: #C51940;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.agency_modal .submitForm {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.agency_modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 50vh;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0px black;
+    z-index: 1;
+    background: white;
+    padding: 20px;
+}
+
+.agency_modal .closeModal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    height: 30px;
+    width: 30px;
+    border: none;
+    box-shadow: 0 0 3px 0px black;
+    border-radius: 5px;
+}
+
+.agency_modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.agency_modal .child {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.agency_modal .child p.title {
+    font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.technician_modal .title-modal {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.technician_modal .submitForm button:hover {
+    border: 1px solid #C51940;
+    color: #C51940;
+    background: white;
+}
+
+.technician_modal .submitForm button {
+    padding: 5px 20px;
+    transition: all .3s;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 0 black;
+    background: #C51940;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.technician_modal .submitForm {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.technician_modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 50vh;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0px black;
+    z-index: 1;
+    background: white;
+    padding: 20px;
+}
+
+.technician_modal .closeModal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    height: 30px;
+    width: 30px;
+    border: none;
+    box-shadow: 0 0 3px 0px black;
+    border-radius: 5px;
+}
+
+.technician_modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.technician_modal .child {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.technician_modal .child p.title {
+    font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+#searchAgency {
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #c3c3c3;
+}
+
+.comfirmOrder .nav li a {
+    background: black;
+    margin-right: 10px;
+    color: white;
+    font-weight: bold;
+    line-height: 1.42857143;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    transition: .3s;
+}
+
+.comfirmOrder .nav li a:hover {
+    background: #c51940;
+    color: white;
+}
+
+.comfirmOrder .tab-content .tab-pane p {
+    margin: 10px 0;
+}
+
+.comfirmOrder .nav {
+    width: 100%;
+    display: block;
+    height: 43px;
+    margin-bottom: 20px;
+}
+
+.confirm-flex button {
+    margin-right: 10px;
+}
+
+.comfirmOrder .nav-tabs>li.active a {
+    color: black;
+    background: white;
+}
+
+.comfirmOrder .nav-tabs>li.active>a:focus {
+    color: black;
+}
+
+.modal-all ul li {
+    margin: 10px 0;
+}
+
+.comfirmArgee,
+.comfirmRefuse {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.comfirmArgee:hover {
+    background: #c51940;
+}
+
+.comfirmArgee {
+    background: black;
+    color: white;
+}
+
+.comfirmRefuse:hover {
+    background: black;
+    color: white;
+}
+
+.syncData .title-p {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 3rem;
+}
+
+.syncData form label {
+    margin-top: 15px;
+}
+
+.syncData form input {
+    line-height: 2.75rem;
+    padding: 0 0.5rem;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+}
+
+.syncData form input,
+.syncData form select {
+    width: 100%;
+}

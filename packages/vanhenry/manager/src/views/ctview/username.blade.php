@@ -1,0 +1,1 @@
+<td data-title="{{$show->note}}">	<?php $user = \App\User::find(FCHelper::ep($dataItem,$show->name)); ?>		<span >{{$user!=null?$user->name:''}}</span></td>

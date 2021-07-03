@@ -1,0 +1,1 @@
+<td data-title="{{$show->note}}">	<?php $value =FCHelper::ep($dataItem,$show->name); ?>	<span >{{array_key_exists($value,HaviHelper::$THICHNESS)?HaviHelper::$THICHNESS[$value][1]:''}}</span></td>

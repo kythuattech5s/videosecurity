@@ -1,0 +1,10 @@
+.table-check-flashsale {
+  border: 1px solid #C0C0C0;
+  border-collapse: collapse;
+  padding: 5px;
+}
+.table-check-flashsale td {
+  border: 1px solid #C0C0C0;
+  padding: 5px;
+  width: 50%;
+}

@@ -1,0 +1,1 @@
+<td data-title="{{$show->note}}">{{ number_format((int)FCHelper::ep($dataItem,$show->name))}} đ</td>

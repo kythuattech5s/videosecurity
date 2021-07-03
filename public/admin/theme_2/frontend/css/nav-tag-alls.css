@@ -1,0 +1,13 @@
+.nav-alls-tag {
+  display: flex;
+  flex-wrap: wrap;
+}
+.nav-alls-tag li:not(:last-child) {
+  margin-right: 10px;
+}
+.nav-alls-tag li a {
+  display: flex;
+  padding: 10px 15px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}

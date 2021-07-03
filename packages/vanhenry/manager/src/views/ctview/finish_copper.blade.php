@@ -1,0 +1,1 @@
+<td data-title="{{$show->note}}">	<?php $value =FCHelper::ep($dataItem,$show->name); ?>	<span >{{array_key_exists($value,HaviHelper::$FINISHED_COPPERS)?HaviHelper::$FINISHED_COPPERS[$value][1]:''}}</span></td>
