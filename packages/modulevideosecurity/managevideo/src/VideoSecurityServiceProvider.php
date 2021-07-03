@@ -14,7 +14,7 @@ class VideoSecurityServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('VideoSetting', function () {
+        $this->app->singleton(\modulevideosecurity\managevideo\Setting\VideoSettingInferface::class, function () {
             return new VideoSetting();
         });
         $this->commands([

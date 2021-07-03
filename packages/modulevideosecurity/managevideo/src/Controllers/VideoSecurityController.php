@@ -8,8 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 class VideoSecurityController extends Controller
 {
 	protected $videoSetting;
-	public function __construct(){
-		$this->videoSetting = app('VideoSetting');
+	public function __construct(\modulevideosecurity\managevideo\Setting\VideoSettingInferface $videoSetting){
+		$this->videoSetting = $videoSetting;
 	}
     public function playVideo($playlist)
     {

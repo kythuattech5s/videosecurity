@@ -26,7 +26,7 @@ class VideoSetting implements VideoSettingInferface
     public function createTvsSecret($itemMedia){
     	$fileInfo = $this->jsonDecode($itemMedia->extra);
     	if (count($fileInfo) == 0) return;
-    	if (!in_array($fileInfo['extension']) return;
+    	if (!in_array($fileInfo['extension'])) return;
     	$dataCreate = array(
     		'media_id' 		=> $itemMedia->id,
 			'file_name' 	=> $itemMedia->file_name,
