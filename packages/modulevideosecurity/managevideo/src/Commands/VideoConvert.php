@@ -3,6 +3,7 @@
 namespace modulevideosecurity\managevideo\Commands;
 
 use Illuminate\Console\Command;
+use \modulevideosecurity\managevideo\Models\TvsSecret;
 
 class VideoConvert extends Command
 {
@@ -37,6 +38,16 @@ class VideoConvert extends Command
      */
     public function handle()
     {
+        $itemTvsSecrets = TvsSecret::where('converted',0)->get()->first();
+        if (!isset($itemTvsSecrets)) return;
+        $filePath = $itemTvsSecrets->file_path.$itemTvsSecrets->file_name;
+        if (!file_exists($filePath)) {
+            $itemTvsSecrets->delete();
+            return;
+        }
+        $fileInMediaDiskPath = str_replace('public/uploads/','',$filePath);
+        $fileSavePath = $itemTvsSecrets->disk_path;
+
         $encryptionKey = \ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter::generateEncryptionKey();
         $this->info("Start");
         $lowBitrate = (new \FFMpeg\Format\Video\X264())->setKiloBitrate(250);
@@ -44,11 +55,11 @@ class VideoConvert extends Command
         $highBitrate = (new \FFMpeg\Format\Video\X264())->setKiloBitrate(1000);
         $superBitrate = (new \FFMpeg\Format\Video\X264)->setKiloBitrate(1500);
         try {
-            \FFMpeg::fromDisk('tvsvideos')
-            ->open('2.mp4')
+            \FFMpeg::fromDisk('uploads')
+            ->open($fileInMediaDiskPath)
             ->exportForHLS()
-            ->withRotatingEncryptionKey(function ($filename, $contents) {
-                \Storage::disk('tvsvideos')->put(\VideoSetting::getSettingConfig('path_output_folder')."/".$filename, $contents);
+            ->withRotatingEncryptionKey(function ($filename, $contents) use ($fileSavePath) {
+                \Storage::disk('tvsvideos')->put($fileSavePath.$filename, $contents);
             })
             ->setSegmentLength(10)
             ->addFormat($lowBitrate, function($media) {
@@ -71,7 +82,9 @@ class VideoConvert extends Command
                 $this->info("Process:{$process}%");
             })
             ->toDisk('tvsvideos')
-            ->save(\VideoSetting::getSettingConfig('path_output_folder').'/1.m3u8');
+            ->save($fileSavePath.$itemTvsSecrets->playlist_name);
+            $itemTvsSecrets->converted = 1;
+            $itemTvsSecrets->save();
         } catch (\ProtoneMedia\LaravelFFMpeg\Exporters\EncodingException $e) {
             echo $e->getCommand();
             echo $e->getErrorOutput();

@@ -47,7 +47,6 @@ class VideoSetting implements VideoSettingInferface
 		$itemTvsSecrets->created_at    = new \DateTime;
 		$itemTvsSecrets->updated_at    = new \DateTime;
         $itemTvsSecrets->save();
-        ConvertVideoForStreaming::dispatch($itemTvsSecrets)->delay(now()->addMinutes(2));
     }
     public function deleteTvsSecret($itemMedia){
         if (!isset($itemMedia)) return;
@@ -73,11 +72,11 @@ class VideoSetting implements VideoSettingInferface
         $ids = explode(',', $id);
         TvsMapItem::where('table_name',$table)->whereIn('target_id',$ids)->delete();
     }
-    private function deleteVideoMapTable($table,$listVideoId,$targetId){
+    public function deleteVideoMapTable($table,$listVideoId,$targetId){
         if (count($listVideoId) == 0) return;
         TvsMapItem::where('table_name',$table)->where('target_id',$targetId)->whereIn('video_meida_map_id',$listVideoId)->delete();
     }
-    private function insertVideoMapTable($table,$listVideoId,$targetId){
+    public function insertVideoMapTable($table,$listVideoId,$targetId){
         if (count($listVideoId) == 0) return;
         $data = array();
         foreach ($listVideoId as $videoId) {
@@ -92,7 +91,7 @@ class VideoSetting implements VideoSettingInferface
         }
         TvsMapItem::insert($data);
     }
-    private function getVideoIdFromDataArray($arr){
+    public function getVideoIdFromDataArray($arr){
         $ret = [];
         foreach ($arr as $key => $value) {
             if ($this->isJsonMediaVideo($value)) {
@@ -102,10 +101,10 @@ class VideoSetting implements VideoSettingInferface
         }
         return $ret;
     }
-    private function getVideoIdFromDataObj($obj){
+    public function getVideoIdFromDataObj($obj){
         return $this->getVideoIdFromDataArray(get_object_vars($obj));
     }
-    private function isJsonMediaVideo($value){
+    public function isJsonMediaVideo($value){
         $valueInfo = $this->jsonDecode($value);
         if (!is_array($valueInfo)) return false;
         if (count($valueInfo) == 0) return false;
@@ -114,7 +113,7 @@ class VideoSetting implements VideoSettingInferface
         }
         return false;
     }
-    private function deleteDir($dirPath) {
+    public function deleteDir($dirPath) {
         if (!is_dir($dirPath)) {
             return "$dirPath must be a directory";
         }

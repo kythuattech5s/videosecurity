@@ -18,7 +18,6 @@ class CreateTvsMapItemsTable extends Migration
             $table->unsignedInteger('video_meida_map_id');
             $table->unsignedInteger('target_id');
             $table->string('table_name');
-            $table->string('file_path');
             $table->datetime('created_at')->useCurrent();
             $table->datetime('updated_at')->useCurrent();
         });

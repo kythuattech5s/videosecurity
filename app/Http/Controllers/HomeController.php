@@ -21,6 +21,7 @@ class HomeController extends Controller
         return (new $controller)->$method($request, $route, $link);
     }
     public function index(){
-        return view('home');
+        $itemNews = \App\Models\News::find(4);
+        return view('home',compact('itemNews'));
     }
 }

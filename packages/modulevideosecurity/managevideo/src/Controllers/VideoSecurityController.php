@@ -46,4 +46,8 @@ class VideoSecurityController extends Controller
     	if (!isset($itemTvsSecret) || (int)$itemTvsSecret->converted == 0) return 'Đã xảy ra lỗi trong quá trình xử lý!';
     	return \Storage::disk('tvsvideos')->download($itemTvsSecret->disk_path.$key);
     }
+    public function autoConvertTvs()
+    {
+        \Artisan::call('tvsvideo:convert');
+    }
 }

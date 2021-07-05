@@ -586,7 +586,6 @@ class MediaController extends BaseAdminController
 				if(file_exists($filePath)){
 					$delfile = $d["path"].$d["file_name"];
 					\Event::dispatch('vanhenry.manager.media.delete.success', array($delfile,$id));
-					var_dump('éc éc');die();
 					unlink($filePath);
 					if (file_exists(str_replace($ext,'.webp', $filePath))) {
 						unlink(str_replace($ext,'.webp', $filePath));
