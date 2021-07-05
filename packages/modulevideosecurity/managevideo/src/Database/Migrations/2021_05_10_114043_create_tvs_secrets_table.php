@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommissionStatisticsTable extends Migration
+class CreateTvsSecretsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,16 @@ class CreateCommissionStatisticsTable extends Migration
      */
     public function up()
     {
-        Schema::create('commission_statistics', function (Blueprint $table) {
+        Schema::create('tvs_secrets', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('hour');
-            $table->unsignedInteger('day');
-            $table->unsignedInteger('month');
-            $table->unsignedInteger('year');
-            $table->unsignedInteger('type');
-            $table->decimal('amount',20,2)->default(0);
+            $table->unsignedInteger('media_id');
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->string('playlist_name');
+            $table->string('playlist_path');
+            $table->tinyInteger('converted')->default('1');
             $table->datetime('created_at')->useCurrent();
             $table->datetime('updated_at')->useCurrent();
-
-            $table->index('user_id');
-            $table->index('hour');
-            $table->index('day');
-            $table->index('month');
-            $table->index('year');
         });
     }
 
@@ -40,6 +33,6 @@ class CreateCommissionStatisticsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commission_statistics');
+        Schema::dropIfExists('tvs_secrets');
     }
 }

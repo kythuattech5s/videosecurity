@@ -7,6 +7,6 @@ class VideoSettingFacades extends Facade
 {
     protected static function getFacadeAccessor()
     { 
-        return 'VideoSetting';
+        return \modulevideosecurity\managevideo\Setting\VideoSetting::class;
     }
 }

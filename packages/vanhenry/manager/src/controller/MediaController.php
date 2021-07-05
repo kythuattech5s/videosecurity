@@ -351,7 +351,6 @@ class MediaController extends BaseAdminController
 		$m->path = $path;
 		$m->extra = json_encode($this->getInfoFile($filename,$path.$filename));
 		$m->save();
-		\VideoSetting::createTvsSecret($m);
 		return $m->id;
 	}
 	private function updateImageMedia($path, $filename,$id,$parent = -1){
@@ -585,6 +584,8 @@ class MediaController extends BaseAdminController
 				}
 				$filePath = $d["path"].$d["file_name"];
 				if(file_exists($filePath)){
+					$delfile = $d["path"].$d["file_name"];
+					\Event::dispatch('vanhenry.manager.media.delete.success', array($delfile,$id));
 					unlink($filePath);
 					if (file_exists(str_replace($ext,'.webp', $filePath))) {
 						unlink(str_replace($ext,'.webp', $filePath));
