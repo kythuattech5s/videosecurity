@@ -9,14 +9,18 @@ class VideoSetting implements VideoSettingInferface
 		'path_output_folder' => 'tvsout'
 	);
 	protected $extAcceptConvert = ['mp4'];
-    public function setKeyUrlResolver($key){
-    	return route('tvs-video.key', ['key' => $key]);
+    public function setKeyUrlResolver($key,$itemTvsSecret){
+    	return route('tvs-video.key', ['key' => $key]).'?info='.$itemTvsSecret->media_id;
     }
-	public function setMediaUrlResolver($mediaFilename){
-    	return \Storage::disk('tvsvideos')->url($this->baseSetting['path_output_folder'].'/'.$mediaFilename);
+    public function checkHaveAccess($itemTvsSecret)
+    {
+        return true;
     }
-    public function setPlaylistUrlResolver($playlistFilename){
-    	return route('tvs-video.playlist', ['playlist' => $playlistFilename]);
+	public function setMediaUrlResolver($mediaFilename,$fileDiskPath){
+    	return \Storage::disk('tvsvideos')->url($fileDiskPath.$mediaFilename);
+    }
+    public function setPlaylistUrlResolver($playlistFilename,$itemTvsSecret){
+    	return route('tvs-video.playlist', ['playlist' => $itemTvsSecret->media_id]).'?info='.$playlistFilename;
     }
     public function getSettingConfig($key){
     	return isset($this->baseSetting[$key]) ? $this->baseSetting[$key]:'';
@@ -31,25 +35,29 @@ class VideoSetting implements VideoSettingInferface
     	$fileInfo = $this->jsonDecode($itemMedia->extra);
     	if (count($fileInfo) == 0) return;
     	if (!in_array($fileInfo['extension'],$this->extAcceptConvert)) return;
-    	$dataCreate = array(
-    		'media_id' 		=> $itemMedia->id,
-			'file_name' 	=> $itemMedia->file_name,
-			'file_path' 	=> $itemMedia->path,
-			'playlist_name' => str_replace($fileInfo['extension'],'m3u8',$itemMedia->file_name),
-			'playlist_path' => 'public/tech5s_security_videos/'.$this->baseSetting['path_output_folder'].'/',
-			'converted' 	=> 0,
-			'created_at' 	=> new \DateTime,
-			'updated_at' 	=> new \DateTime
-    	);
-    	\DB::table('tvs_secrets')->insert($dataCreate);
-        ConvertVideoForStreaming::dispatch($itemMedia)->delay(now()->addMinutes(2));
+        $itemTvsSecrets = new TvsSecret;
+
+    	$itemTvsSecrets->media_id 	   = $itemMedia->id;
+		$itemTvsSecrets->file_name 	   = $itemMedia->file_name;
+		$itemTvsSecrets->file_path 	   = $itemMedia->path;
+		$itemTvsSecrets->playlist_name = str_replace($fileInfo['extension'],'m3u8',$itemMedia->file_name);
+		$itemTvsSecrets->playlist_path = 'public/tech5s_security_videos/'.$this->baseSetting['path_output_folder'].'/'.$itemMedia->id.'/';
+        $itemTvsSecrets->disk_path     = $this->baseSetting['path_output_folder'].'/'.$itemMedia->id.'/';
+		$itemTvsSecrets->converted        = 0;
+		$itemTvsSecrets->created_at    = new \DateTime;
+		$itemTvsSecrets->updated_at    = new \DateTime;
+        $itemTvsSecrets->save();
+        ConvertVideoForStreaming::dispatch($itemTvsSecrets)->delay(now()->addMinutes(2));
     }
     public function deleteTvsSecret($itemMedia){
         if (!isset($itemMedia)) return;
         $fileInfo = $this->jsonDecode($itemMedia->extra);
         if (count($fileInfo) == 0) return;
         if (!in_array($fileInfo['extension'],$this->extAcceptConvert)) return;
-        TvsSecret::where('media_id',$itemMedia->id)->delete();
+        $itemTvsSecrets = TvsSecret::where('media_id',$itemMedia->id)->get()->first();
+        if (!isset($itemTvsSecrets)) return;
+        $this->deleteDir($itemTvsSecrets->playlist_path);
+        $itemTvsSecrets->delete();
     }
     public function catchInsertAdminEvent($table,array $data,int $targetId){
         $videoIds = $this->getVideoIdFromDataArray($data);
@@ -106,4 +114,22 @@ class VideoSetting implements VideoSettingInferface
         }
         return false;
     }
+    private function deleteDir($dirPath) {
+        if (!is_dir($dirPath)) {
+            return "$dirPath must be a directory";
+        }
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deleteDir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
+    }
 }
+    

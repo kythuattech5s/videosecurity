@@ -47,6 +47,12 @@ return [
             'url' => env('APP_URL').'/tech5s_security_videos',
             'visibility' => 'public',
         ],
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

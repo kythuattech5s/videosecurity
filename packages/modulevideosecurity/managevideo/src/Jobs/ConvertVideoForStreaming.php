@@ -18,10 +18,10 @@ class ConvertVideoForStreaming implements ShouldQueue
      *
      * @return void
      */
-    protected $itemMedia;
-    public function __construct($itemMedia)
+    protected $itemTvsSecrets;
+    public function __construct($itemTvsSecrets)
     {
-        $this->itemMedia = $itemMedia;
+        $this->itemTvsSecrets = $itemTvsSecrets;
     }
 
     /**
@@ -31,17 +31,24 @@ class ConvertVideoForStreaming implements ShouldQueue
      */
     public function handle()
     {
+        $filePath = $this->itemTvsSecrets->file_path.$this->itemTvsSecrets->file_name;
+        if (!file_exists($filePath)) {
+            $this->itemTvsSecrets->delete();
+            return;
+        }
+        $fileInMediaDiskPath = str_replace('public/uploads/','',$filePath);
+        $fileSavePath = $this->itemTvsSecrets->disk_path;
         $encryptionKey = \ProtoneMedia\LaravelFFMpeg\Exporters\HLSExporter::generateEncryptionKey();
         $lowBitrate = (new \FFMpeg\Format\Video\X264())->setKiloBitrate(250);
         $midBitrate = (new \FFMpeg\Format\Video\X264())->setKiloBitrate(500);
         $highBitrate = (new \FFMpeg\Format\Video\X264())->setKiloBitrate(1000);
         $superBitrate = (new \FFMpeg\Format\Video\X264)->setKiloBitrate(1500);
         try {
-            \FFMpeg::fromDisk('tvsvideos')
-            ->open('2.mp4')
+            \FFMpeg::fromDisk('uploads')
+            ->open($fileInMediaDiskPath)
             ->exportForHLS()
-            ->withRotatingEncryptionKey(function ($filename, $contents) {
-                \Storage::disk('tvsvideos')->put(\VideoSetting::getSettingConfig('path_output_folder')."/".$filename, $contents);
+            ->withRotatingEncryptionKey(function ($filename, $contents) use ($fileSavePath) {
+                \Storage::disk('tvsvideos')->put($fileSavePath.$filename, $contents);
             })
             ->setSegmentLength(10)
             ->addFormat($lowBitrate, function($media) {
@@ -61,7 +68,9 @@ class ConvertVideoForStreaming implements ShouldQueue
                 });
             })
             ->toDisk('tvsvideos')
-            ->save(\VideoSetting::getSettingConfig('path_output_folder').'/1.m3u8');
+            ->save($fileSavePath.$this->itemTvsSecrets->playlist_name);
+            $this->itemTvsSecrets->converted = 1;
+            $this->itemTvsSecrets->save();
         } catch (\ProtoneMedia\LaravelFFMpeg\Exporters\EncodingException $e) {
             echo $e->getCommand();
             echo $e->getErrorOutput();

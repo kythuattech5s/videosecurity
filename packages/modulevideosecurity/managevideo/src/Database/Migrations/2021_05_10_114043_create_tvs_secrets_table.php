@@ -20,9 +20,12 @@ class CreateTvsSecretsTable extends Migration
             $table->string('file_path');
             $table->string('playlist_name');
             $table->string('playlist_path');
+            $table->string('disk_path');
             $table->tinyInteger('converted')->default('1');
             $table->datetime('created_at')->useCurrent();
             $table->datetime('updated_at')->useCurrent();
+
+            $table->index('media_id');
         });
     }
 
